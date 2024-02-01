@@ -16,6 +16,38 @@ ui <- fluidPage(
     column(5,
            plotOutput("probabilityPlot", height = "75")
     )
+  ),
+  fluidRow(
+    column(12, 
+           hr(),
+           h3("Using Odds and Probabilities"),
+           p("Odds can be converted to probabilities, and probabilities can be converted to odds. 
+      By entering different odds in the box above you can get a feel for how the two are 
+      related."),
+           
+           p("For example:"),
+           tags$ul(
+             tags$li("Odds of 1 (1 to 1) corresponds to a probability of 0.5"),
+             tags$li("Odds of
+      4 (4 to 1) means that it is 4 times as likely to be true as to be false, which corresponds to 
+      a probability of 0.8 (Probability it is true = 0.8; probability it is false = 0.2; 
+      odds = 0.8 / 0.2 = 4)"),
+             tags$li("Odds of 0.25 (odds of 1 to 4 in favor, or 4 to 1 against) means that it is 4 times
+      as likely to be false as to be true, which corresponds to a probability of 0.2 
+      (Probability it is true = 0.2; probability it is false = 0.8; odds = 0.2 / 0.8 = 0.25)")
+           ),
+           p(strong("Either odds or probabilities can be used to quantify the amount of
+             confidence you have in a belief."), "Odds of 1 (probability = 0.5) means
+             you are completely uncertain whether it is true or false. Odds of 10 to 1
+             in favor means you are pretty confident it is true.  Odds of 10 to 1 against
+             means you are pretty confident it is false.
+             "  ),
+           p(strong("Using odds has some advantages:")),
+           tags$ul(
+             tags$li("Using odds helps keep you from setting your confidence at 0% or 100%"),
+             tags$li("Using odds makes it easy to update your beliefs in response to new evidence")
+           )
+    )
   )
 )
 
