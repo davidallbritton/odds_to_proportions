@@ -4,34 +4,34 @@ library(shiny)
 
 # Define the UI
 ui <- fluidPage(
-  titlePanel("Odds Converter"),
-  sidebarLayout(
-    sidebarPanel(
-      fluidRow(tags$p("Specify your odds:")),
-      fluidRow(
-        column(5, textInput("oddsInput", label = NULL, value = "1")),
-        column(2, tags$span(" to 1")),
-        column(5, radioButtons("oddsType", label = NULL, 
-                               choices = c("for", "against"),
-                               selected = "for", inline = TRUE))
-      )
-    ),
-    mainPanel(
-      # textOutput("displayOdds"),
-      uiOutput("displayOdds"),
-      plotOutput("probabilityPlot", height = "80")
+  titlePanel("Specify your odds:"),
+  fluidRow(
+    column(2, textInput("oddsInput", label = NULL, value = "1")),
+    column(1, tags$span(" to 1")),
+    column(1, radioButtons("oddsType", label = NULL, 
+                           choices = c("for", "against"),
+                           selected = "for", inline = TRUE)),
+    column(1),
+    column(2, uiOutput("displayOdds")),
+    column(5,
+           plotOutput("probabilityPlot", height = "75")
     )
   )
 )
 
 # Define the server logic
 server <- function(input, output) {
+  
   # Custom function to format numbers
   formatNumber <- function(number) {
-    if (number > 0 && number < 1e-12 || number > 1e+12 ) {
+    if (number > 0 && number < 1e-12 || number >= 1e+12 ) {
       return(sprintf("%.2e", number))
     } else {
-      return(format(number, scientific = FALSE, trim = TRUE))
+      if (number > 0 && number < 1e+12){
+        return(prettyNum(number, big.mark = ",", scientific=F))
+      } else{
+        return(format(number, scientific = FALSE, trim = TRUE))
+      }
     }
   }
   
