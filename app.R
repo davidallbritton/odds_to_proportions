@@ -24,13 +24,15 @@ server <- function(input, output) {
   
   # Custom function to format numbers
   formatNumber <- function(number) {
-    if (number > 0 && number < 1e-12 || number >= 1e+12 ) {
+    if ((number > 0 && number < 1e-12) || number >= 1e+12 ) {
       return(sprintf("%.2e", number))
     } else {
-      if (number > 0 && number < 1e+12){
+      if (number >= 1 && number < 1e+12){
         return(prettyNum(number, big.mark = ",", scientific=F))
       } else{
-        return(format(number, scientific = FALSE, trim = TRUE))
+        formatted <- format(number, scientific = FALSE, trim = TRUE)
+        if (number >= .0001) {formatted <- sprintf("%.4f", number)}
+        return(sub("0+$", "", formatted))
       }
     }
   }
@@ -43,6 +45,9 @@ server <- function(input, output) {
     } else {
       # Format with up to 15 decimal places
       formatted <- sprintf("%.15f", prob)
+      if(prob <= .9999 && prob >= .0001) {
+        formatted <- sprintf("%.4f", prob)
+      }
       # Remove trailing zeros
       return(sub("0+$", "", formatted))
     }
@@ -73,15 +78,6 @@ server <- function(input, output) {
     list(odds = odds, prob = prob)
   })
   
-  # # Display the odds or error message
-  # output$displayOdds <- renderText({
-  #   data <- calcOdds()
-  #   if (is.null(data)) {
-  #     "Error: Please enter a valid numeric odds value."
-  #   } else {
-  #     sprintf("Odds: %s;  Log odds: %g;  Probability: %s", formatNumber(data$odds), log(data$odds), formatProbability(data$prob))
-  #   }
-  # })
   
   # Display the odds or error message
   output$displayOdds <- renderUI({
