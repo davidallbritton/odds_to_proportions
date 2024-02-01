@@ -1,5 +1,7 @@
 library(shiny)
 
+# This little Shiny app is intended to help students get a feel for the relationship between odds and probabilities. It is NOT suitable for doing calculations for anything important; write some R code to do that instead.
+
 # Define the UI
 ui <- fluidPage(
   titlePanel("Odds Converter"),
