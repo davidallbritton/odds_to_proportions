@@ -44,9 +44,19 @@ ui <- fluidPage(
              "  ),
            p(strong("Using odds has some advantages:")),
            tags$ul(
-             tags$li("Using odds helps keep you from setting your confidence at 0% or 100%"),
-             tags$li("Using odds makes it easy to update your beliefs in response to new evidence")
+             tags$li("Using odds helps keep you from", 
+                     a("setting your confidence at 0% or 100%", 
+                       href="https://en.wikipedia.org/wiki/Cromwell%27s_rule")),
+             tags$li("Using odds makes it easy to update your beliefs in response to new evidence"),
+             tags$li("The idea of a ", '"fair bet"', "can help you", 
+                     a("quantify your level of confidence", 
+                       href="https://jonathanweisberg.org/vip/beliefs-betting-rates.html"))
            )
+           
+           
+           
+           
+           
     )
   )
 )
